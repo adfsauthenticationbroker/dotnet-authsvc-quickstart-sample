@@ -1,19 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-
-using System.Web.Mvc;
-using System.IO;
-
 using System.Text;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Xml;
-
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 
@@ -113,7 +100,7 @@ namespace ClaimAppDemo01
             var tokenHandler = new JwtSecurityTokenHandler();
             SecurityToken validatedToken;
 
-            var key = Encoding.ASCII.GetBytes("[SECRET USED TO SIGN AND VERIFY JWT TOKENS, IT CAN BE ANY STRING]");
+            var key = Encoding.ASCII.GetBytes("[SECRET USED TO SIGN AND VERIFY JWT TOKENS, IT CAN BE ANY STRING]"); // TODO: set the shared secret key here
             try
             {
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
@@ -127,15 +114,13 @@ namespace ClaimAppDemo01
                 }, out validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                //var accountId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
-                // return account id from JWT token if validation successful
+                // return true if validation successful
                 return true;
             }
             catch
             {
-                // return null if validation fails
-                // return null;
+                // return false if validation fails
                 return false;
             }
         }
