@@ -8,7 +8,8 @@ namespace ClaimAppDemo01
         public string _URL = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            _URL = formQueryString();
+            string url = formQueryString();
+            Response.Redirect(url);
         }
 
         public static string Base64Encode(string plainText)
@@ -38,8 +39,8 @@ namespace ClaimAppDemo01
             TimeZoneInfo est;
             est = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
             DateTime targetTime = TimeZoneInfo.ConvertTime(DateTime.Now, est); // GMT+8 (singapore timezone)
-            string nonce = targetTime.ToString("dd-MMM-yyyy HH:mm:ss", new System.Globalization.CultureInfo("en-US")) + "." + state; // date time in GMT+8 (timezone) and en-US cultureinfo
 
+            string nonce = targetTime.ToString("dd-MMM-yyyy HH:mm:ss", new System.Globalization.CultureInfo("en-US")) + "." + state; // date time in GMT+8 (timezone) and en-US cultureinfo
             string returnUri = "http://localhost:8080/postback.aspx"; // your return url
             string tenantId = "f98188a6-88cb-4663-a2b4-46e4335969dc"; // your tenant id 
             string url = "https://localhost:8111/api/users/login"; // auth svc url 
